@@ -6,7 +6,8 @@
   "types": "lib/index.d.ts",
   "dependencies": {
     "@types/node-fetch": "2.1.4",
-    "node-fetch": "2.3.0"
+    "node-fetch": "2.3.0",
+    "url": "0.11.0"
   },
   "devDependencies": {
     "typescript": "3.2.4"
