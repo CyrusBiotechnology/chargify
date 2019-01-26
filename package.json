@@ -1,0 +1,29 @@
+{
+  "name": "chargify",
+  "version": "0.0.0",
+  "description": "Chargify API client",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "dependencies": {
+    "@types/node-fetch": "2.1.4",
+    "node-fetch": "2.3.0"
+  },
+  "devDependencies": {
+    "typescript": "3.2.4"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf lib",
+    "build": "tsc -p tsconfig.build.json --outDir lib",
+    "dev": "tsc -p tsconfig.build.json --outDir lib -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CyrusBiotechnology/chargify.git"
+  },
+  "keywords": [
+    "chargify"
+  ]
+}
