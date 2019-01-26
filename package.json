@@ -10,6 +10,7 @@
     "url": "0.11.0"
   },
   "devDependencies": {
+    "ava": "1.1.0",
     "typescript": "3.2.4"
   },
   "files": [
@@ -18,7 +19,8 @@
   "scripts": {
     "prebuild": "rm -rf lib",
     "build": "tsc -p tsconfig.build.json --outDir lib",
-    "dev": "tsc -p tsconfig.build.json --outDir lib -w"
+    "dev": "tsc -p tsconfig.build.json --outDir lib -w",
+    "test": "npm run build; ava lib/**/*.spec.js"
   },
   "repository": {
     "type": "git",
