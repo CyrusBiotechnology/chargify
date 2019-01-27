@@ -1,6 +1,5 @@
 # Base image
 FROM node:10.15 as base
-USER node
 WORKDIR /app
 # Install dependencies only when package.json changes
 COPY package.json ./package.json
@@ -29,4 +28,5 @@ RUN echo "registry = https://registry.npmjs.org/" > .npmrc
 RUN echo "always-auth = true" >> .npmrc
 RUN echo "email = ${npm_email}" >> .npmrc
 RUN echo "_auth = ${npm_token}" >> .npmrc
+USER node
 CMD npm publish --access public
