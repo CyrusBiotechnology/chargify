@@ -35,7 +35,11 @@ export function mockCustomers1(options: TestOptions): ICustomerMock {
     }
   ];
 
+  // base64-encoded Chargify credentials
+  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
+
   const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
+  .matchHeader('Authorization', `Basic ${basicAuth}`)
   .get('/customers.json')
   .reply(200, customers.map(customer => ({customer}))) // wrap each customer object
 
