@@ -5,7 +5,7 @@ import {get} from '../request';
 export interface IGetCustomersRequest {}
 
 export interface IGetCustomersResponse {
-  error: Error | null;
+  error: ChargifyApiError | null;
   customers: IChargifyCustomer[] | null;
 }
 
