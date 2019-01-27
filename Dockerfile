@@ -15,5 +15,11 @@ CMD npm test
 
 # Build and publish
 FROM base as publisher
+ARG npm_email
+ARG npm_token
+RUN test ${npm_email}
+RUN test ${npm_token}
 RUN npm run build
+RUN echo "email = ${npm_email}" > .npmrc
+RUN echo "_auth = ${npm_token}" >> .npmrc
 CMD npm publish
