@@ -74,12 +74,12 @@ export interface IChargifySubscription {
     card_type: string;
     expiration_month: number;
     expiration_year: number;
-    billing_address: string | null
-    billing_address_2: string | null
-    billing_city: string | null
-    billing_state: string | null
-    billing_country: string | null
-    billing_zip: string | null
+    billing_address: string | null;
+    billing_address_2: string | null;
+    billing_city: string | null;
+    billing_state: string | null;
+    billing_country: string | null;
+    billing_zip: string | null;
     current_vault: string;
     vault_token: string;
     customer_vault_token: string | null;
