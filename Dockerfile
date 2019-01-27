@@ -26,4 +26,4 @@ RUN test ${npm_email}
 RUN test ${npm_token}
 RUN echo "email = ${npm_email}" > .npmrc
 RUN echo "_auth = ${npm_token}" >> .npmrc
-CMD npm publish
+CMD npm publish --access public
