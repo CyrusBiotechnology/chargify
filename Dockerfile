@@ -20,9 +20,7 @@ RUN npm run build
 
 # Publish
 FROM builder as publisher
-ARG npm_email
 ARG npm_token
-RUN test ${npm_email}
 RUN test ${npm_token}
 RUN echo "//registry.npmjs.org/:_authToken=${npm_token}" > .npmrc
 USER node

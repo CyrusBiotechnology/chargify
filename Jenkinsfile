@@ -29,8 +29,8 @@ pipeline {
         // Publish
         script {
           if (env.BRANCH_NAME == 'master') {
-            withCredentials([usernamePassword(credentialsId: 'npm-auth-token', usernameVariable: 'npm_email', passwordVariable: 'npm_token')]) {
-              sh "docker build . --target publisher --tag ${IMAGE_REF} --build-arg npm_email=${npm_email} --build-arg npm_token=${npm_token}"
+            withCredentials([usernamePassword(credentialsId: 'npm-auth-token', passwordVariable: 'npm_token')]) {
+              sh "docker build . --target publisher --tag ${IMAGE_REF} --build-arg npm_token=${npm_token}"
               sh "docker run ${IMAGE_REF}"
             }
           }
