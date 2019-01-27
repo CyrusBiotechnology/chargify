@@ -22,4 +22,10 @@ function testWithoutMocks(options: TestOptions) {
     t.is(response.error, null);
     t.true(Array.isArray(response.customers));
   })
+
+  test('getCustomers should return error with HTTP status code 401 when no API key provided', async (t) => {
+    const response = await getCustomers(options.chargify.subdomain, undefined)();
+    t.is(response.error.statusCode, 401);
+    t.is(response.customers, null);
+  })
 }
