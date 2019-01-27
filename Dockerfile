@@ -1,29 +1,19 @@
 # Base image
 FROM node:10.15 as base
 WORKDIR /app
-
-
-# Dependencies
-FROM base as dependencies
+# Install dependencies only when package.json changes
 COPY package.json ./package.json
 COPY package-lock.json ./package-lock.json
-# Install dependencies only when package.json changes
 RUN npm install
 COPY . .
 
 
 # Test
-FROM dependencies as tester
-COPY tsconfig.test.json ./tsconfig.test.json
+FROM base as tester
 CMD npm test
 
 
-# Build
-FROM dependencies as builder
-RUN npm run build
-
-
-# Publish
+# Build and publish
 FROM base as publisher
-COPY --from=builder /app/lib ./lib
+RUN npm run build
 CMD npm publish
