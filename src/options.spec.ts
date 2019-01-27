@@ -1,6 +1,6 @@
 export interface TestOptions {
   chargify: {
-    shouldBeMocked: boolean;
+    skipMocks: boolean;
     apiKey: string;
     subdomain: string;
   }
