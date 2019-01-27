@@ -1,5 +1,5 @@
 {
-  "name": "chargify",
+  "name": "@cyrusbio/chargify",
   "version": "0.0.0",
   "description": "Chargify API client",
   "main": "lib/index.js",
