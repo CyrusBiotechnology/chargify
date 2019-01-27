@@ -25,11 +25,14 @@ pipeline {
     stage('Build and publish package') {
       steps {
         // Build
-        sh "docker build . --target publisher --tag ${IMAGE_REF}"
+        sh "docker build . --target builder"
         // Publish
         script {
           if (env.BRANCH_NAME == 'master') {
-            sh "docker run ${IMAGE_REF}"
+            withCredentials([usernamePassword(credentialsId: 'npm-auth-token', usernameVariable: 'npm_email', passwordVariable: 'npm_token')]) {
+              sh "docker build . --target publisher --tag ${IMAGE_REF} --build-arg npm_email=${npm_email} --build-arg npm_token=${npm_token}"
+              sh "docker run ${IMAGE_REF}"
+            }
           }
         }
       }
