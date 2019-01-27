@@ -24,9 +24,6 @@ ARG npm_email
 ARG npm_token
 RUN test ${npm_email}
 RUN test ${npm_token}
-RUN echo "registry = https://registry.npmjs.org/" > .npmrc
-RUN echo "always-auth = true" >> .npmrc
-RUN echo "email = ${npm_email}" >> .npmrc
-RUN echo "_auth = ${npm_token}" >> .npmrc
+RUN echo "//registry.npmjs.org/:_authToken=${npm_token}" > .npmrc
 USER node
 CMD npm publish --access public
