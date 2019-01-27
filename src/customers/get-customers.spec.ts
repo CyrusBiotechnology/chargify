@@ -17,5 +17,9 @@ function testWithMocks(options: TestOptions) {
 }
 
 function testWithoutMocks(options: TestOptions) {
-
+  test('getCustomers should return list of customers', async (t) => {
+    const response = await getCustomers(options.chargify.subdomain, options.chargify.apiKey)();
+    t.is(response.error, null);
+    t.true(Array.isArray(response.customers));
+  })
 }
