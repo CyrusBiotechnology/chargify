@@ -23,5 +23,4 @@ FROM builder as publisher
 ARG npm_token
 RUN test ${npm_token}
 RUN echo "//registry.npmjs.org/:_authToken=${npm_token}" > .npmrc
-USER node
 CMD npm publish --access public
