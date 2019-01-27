@@ -29,7 +29,7 @@ pipeline {
         // Publish
         script {
           if (env.BRANCH_NAME == 'master') {
-            withCredentials([usernamePassword(credentialsId: 'npm-auth-token', passwordVariable: 'npm_token')]) {
+            withCredentials([string(credentialsId: 'npm-auth-token', variable: 'npm_token')]) {
               sh "docker build . --target publisher --tag ${IMAGE_REF} --build-arg npm_token=${npm_token}"
               sh "docker run ${IMAGE_REF}"
             }
