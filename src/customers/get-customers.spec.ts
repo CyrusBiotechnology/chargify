@@ -1,22 +1,8 @@
 import test from 'ava';
 import {getCustomers} from './get-customers';
+import {TestOptions} from '../options.spec';
 
-interface TestOptions {
-  apiKey: string;
-  subdomain: string;
-}
-
-const defaultOptions: TestOptions = {
-  subdomain: 'testSubdomain',
-  apiKey: 'testApiKey',
-};
-
-export function getCustomersSpec(options?: TestOptions) {
-  options = {
-    ...defaultOptions,
-    ...options,
-  };
-
+export function getCustomersSpec(options: TestOptions) {
   test('getCustomers should return list of customers', async (t) => {
     const response = await getCustomers(options.subdomain, options.apiKey)();
     t.pass();
