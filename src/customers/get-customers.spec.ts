@@ -1,7 +1,7 @@
 import test from 'ava';
 import {getCustomers} from './get-customers';
 import {TestOptions} from '../options.spec';
-import {mockCustomers1} from './mock-customers.spec';
+import {mockGetCustomers1} from './get-customers.mock.spec';
 
 export function getCustomersSpec(options: TestOptions) {
   options.chargify.skipMocks ? testWithoutMocks(options) : testWithMocks(options);
@@ -9,7 +9,7 @@ export function getCustomersSpec(options: TestOptions) {
 
 function testWithMocks(options: TestOptions) {
   test('getCustomers should return list of customers', async (t) => {
-    const {customers, mock} = mockCustomers1(options);
+    const {customers, mock} = mockGetCustomers1(options);
     const response = await getCustomers(options.chargify.subdomain, options.chargify.apiKey)();
     t.deepEqual(response.customers, customers);
     mock.done();

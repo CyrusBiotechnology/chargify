@@ -7,7 +7,7 @@ export interface ISubscriptionMock {
   subscriptions: IChargifySubscription[];
 }
 
-export function mockSubscriptions1(options: TestOptions): ISubscriptionMock {
+export function mockGetSubscriptions1(options: TestOptions): ISubscriptionMock {
   const subscriptions: IChargifySubscription[] = [
     {
       id: 1,

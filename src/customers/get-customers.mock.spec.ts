@@ -7,7 +7,7 @@ export interface ICustomerMock {
   customers: IChargifyCustomer[];
 }
 
-export function mockCustomers1(options: TestOptions): ICustomerMock {
+export function mockGetCustomers1(options: TestOptions): ICustomerMock {
   const customers: IChargifyCustomer[] = [
     {
       id: 10101,
