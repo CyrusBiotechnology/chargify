@@ -1,5 +1,6 @@
 # Base image
 FROM node:10.15 as base
+USER node
 WORKDIR /app
 # Install dependencies only when package.json changes
 COPY package.json ./package.json
