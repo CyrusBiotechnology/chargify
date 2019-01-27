@@ -9,7 +9,7 @@ export interface IGetCustomersResponse {
   customers: IChargifyCustomer[] | null;
 }
 
-export async function getCustomers(subdomain: string, apiKey: string) {
+export function getCustomers(subdomain: string, apiKey: string) {
   return async (): Promise<IGetCustomersResponse> => {
     const response = await get<{customer: IChargifyCustomer}[]>({
       path: '/customers.json',

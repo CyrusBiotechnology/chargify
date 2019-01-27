@@ -21,10 +21,10 @@
     "prebuild": "rm -rf lib",
     "build": "tsc -p tsconfig.build.json --outDir lib",
     "build:watch": "tsc -p tsconfig.build.json --outDir lib -w",
-    "ava": "ava lib/**/*.spec.js",
-    "ava:watch": "ava lib/**/*.spec.js -w",
-    "test": "run-s build ava",
-    "test:watch": "run-p build:watch ava:watch"
+    "unit": "ava lib/index.spec.js",
+    "unit:watch": "ava lib/index.spec.js -w",
+    "test": "run-s build unit",
+    "test:watch": "run-p build:watch unit:watch"
   },
   "repository": {
     "type": "git",
