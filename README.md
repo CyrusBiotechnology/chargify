@@ -1,5 +1,19 @@
 # chargify — client library for the Chargify API
 
+## Tests
+
+### With mocks:
+
+```bash
+npm test
+```
+
+### Without mocks:
+
+```bash
+TEST_CHARGIFY_SKIP_MOCKS=true TEST_CHARGIFY_API_KEY=<api-key> TEST_CHARGIFY_SUBDOMAIN=<subdomain> npm test
+```
+
 ## Notes
 
 ### url
