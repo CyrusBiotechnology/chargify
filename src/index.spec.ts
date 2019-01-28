@@ -1,5 +1,6 @@
-import {getCustomersSpec} from './customers/get-customers.spec';
 import {TestOptions} from './options.spec';
+import {getCustomersSpec} from './customers/get-customers.spec';
+import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
 
 // Generate test options
 const options: TestOptions = {
@@ -12,3 +13,4 @@ const options: TestOptions = {
 
 // Run tests
 getCustomersSpec(options);
+getSubscriptionsSpec(options);
