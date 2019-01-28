@@ -22,11 +22,14 @@ pipeline {
       }
     }
 
-    stage('Build and publish package') {
+    stage('Build') {
       steps {
-        // Build
         sh "docker build . --target builder"
-        // Publish
+      }
+    }
+
+    stage('Publish package to npm') {
+      steps {
         script {
           if (env.BRANCH_NAME == 'master') {
             withCredentials([string(credentialsId: 'npm-auth-token', variable: 'npm_token')]) {
