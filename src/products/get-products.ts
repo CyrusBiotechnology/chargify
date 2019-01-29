@@ -1,4 +1,4 @@
-import { IChargifyProduct } from "../interfaces";
+import { IChargifyProduct } from '../interfaces';
 import {ChargifyApiError} from '../error';
 import { get } from '../request';
 
