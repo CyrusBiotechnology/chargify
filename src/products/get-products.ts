@@ -4,20 +4,29 @@ import { get } from '../request';
 
 export interface IGetProductsRequest {}
 
-export interface IGetProductsResponse {
+export interface IGetProductsResponseBody {
   error: ChargifyApiError | null;
   products: IChargifyProduct[] | null;
 }
 
-export async function getProducts(product_family_id: number, apiKey: string, subdomain: string): Promise<IChargifyProduct[]> {
-    
-    const response = await get<{product: IChargifyProduct}[]>({
-        path: `/product_families/${product_family_id}/products.json`,
-        apiKey: apiKey,
-        subdomain: subdomain,
-      });
-    if (response.statusCode !== 200) {
-      console.error(response.statusCode, JSON.stringify(response.body, null, 2));
+export async function getProducts(product_family_id: number, apiKey: string, subdomain: string) {
+    return async (): Promise<IGetProductsResponseBody> => {
+        const response = await get<{product: IChargifyProduct[]}>({
+            path: `/product_families/${product_family_id}/products.json`,
+            apiKey: apiKey,
+            subdomain: subdomain,
+        });
+        if (!response.ok) {
+            return {
+              error: new ChargifyApiError(response.status, 'Failed to get products'),
+              products: null,
+            };
+          }
+        const rawProducts = await response.json();
+        const products = rawProducts.map((product) => product.product);
+        return {
+          error: null,
+          products,
+        };
     }
-    return response.body.map((product) => product.product)
-}
+} 
