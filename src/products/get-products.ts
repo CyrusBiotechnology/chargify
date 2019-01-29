@@ -11,7 +11,7 @@ export interface IGetProductsResponseBody {
 
 export async function getProducts(product_family_id: number, apiKey: string, subdomain: string) {
     return async (): Promise<IGetProductsResponseBody> => {
-        const response = await get<{product: IChargifyProduct[]}>({
+        const response = await get<{product: IChargifyProduct}[]>({
             path: `/product_families/${product_family_id}/products.json`,
             apiKey: apiKey,
             subdomain: subdomain,
