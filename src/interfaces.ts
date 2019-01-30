@@ -1,6 +1,35 @@
 export type ChargifyId = number;
 export type ChargifyDate = string | null;
 
+export interface IChargifyComponent {
+  id: ChargifyId;
+  product_family_id: ChargifyId;
+  default_price_point_id: ChargifyId;
+  name: string;
+  handle: string;
+  kind: 'metered_component' | 'quantity_based_component';
+  description: string;
+  archived: boolean;
+  unit_name: string;
+  unit_price: string;
+  pricing_scheme: 'per_unit';
+  price_per_unit_in_cents: null;
+  prices: {
+    id: ChargifyId;
+    component_id: ChargifyId;
+    starting_quantity: number;
+    ending_quantity: number | null;
+    unit_price: string;
+    price_point_id: ChargifyId;
+    formatted_unit_price: string;
+  }[];
+  price_point_count: number;
+  price_points_url: string;
+  taxable: boolean;
+  tax_code: string;
+  recurring: boolean;
+}
+
 export interface IChargifyCustomer {
   id: ChargifyId;
   organization: string;
@@ -126,33 +155,4 @@ export interface IChargifyProduct {
     } [],
     taxable: boolean;
   version_number: number;
-}
-
-export interface IChargifyComponent {
-  id: ChargifyId;
-  product_family_id: ChargifyId;
-  default_price_point_id: ChargifyId;
-  name: string;
-  handle: string;
-  kind: 'metered_component' | 'quantity_based_component';
-  description: string;
-  archived: boolean;
-  unit_name: string;
-  unit_price: string;
-  pricing_scheme: 'per_unit';
-  price_per_unit_in_cents: null;
-  prices: {
-    id: ChargifyId;
-    component_id: ChargifyId;
-    starting_quantity: number;
-    ending_quantity: number | null;
-    unit_price: string;
-    price_point_id: ChargifyId;
-    formatted_unit_price: string;
-  }[];
-  price_point_count: number;
-  price_points_url: string;
-  taxable: boolean;
-  tax_code: string;
-  recurring: boolean;
 }

@@ -1,7 +1,7 @@
 import {TestOptions} from './options.spec';
+import {getComponentsSpec} from './components/get-components.spec';
 import {getCustomersSpec} from './customers/get-customers.spec';
 import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
-import {getComponentsSpec} from './components/get-components.spec';
 
 const productFamilyId = process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID && parseInt(process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID) || 100000;
 
@@ -16,6 +16,6 @@ const options: TestOptions = {
 }
 
 // Run tests
+getComponentsSpec(options);
 getCustomersSpec(options);
 getSubscriptionsSpec(options);
-getComponentsSpec(options);
