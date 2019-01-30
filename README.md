@@ -14,9 +14,9 @@ npm test
 TEST_CHARGIFY_SKIP_MOCKS=true \
 TEST_CHARGIFY_API_KEY=<api-key> \
 TEST_CHARGIFY_SUBDOMAIN=<subdomain> \
-TEST_CHARGIFY_PRODUCT_FAMILY_ID=<product-family-id>
-TEST_CHARGIFY_COMPONENT_1_ID=<component-id>
-TEST_CHARGIFY_COMPONENT_1_HANDLE=<component-handle>
+TEST_CHARGIFY_PRODUCT_FAMILY_ID=<product-family-id> \
+TEST_CHARGIFY_COMPONENT_1_ID=<component-id> \
+TEST_CHARGIFY_COMPONENT_1_HANDLE=<component-handle> \
 npm test
 ```
 
