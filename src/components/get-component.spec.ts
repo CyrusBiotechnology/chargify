@@ -32,7 +32,7 @@ function testWithMocks(options: TestOptions) {
 }
 
 function testWithoutMocks(options: TestOptions) {
-  test('getComponent should get a single component', async (t) => {
+  test('getComponent should get a single component by component ID', async (t) => {
     const response = await getComponent(options.chargify.subdomain, options.chargify.apiKey)({
       productFamilyId: options.chargify.productFamilyId,
       requestType: 'id',
@@ -40,6 +40,16 @@ function testWithoutMocks(options: TestOptions) {
     });
     t.is(response.error, null);
     t.is(response.component.id, options.chargify.component1Id);
+  })
+
+  test('getComponent should get a single component by component handle', async (t) => {
+    const response = await getComponent(options.chargify.subdomain, options.chargify.apiKey)({
+      productFamilyId: options.chargify.productFamilyId,
+      requestType: 'handle',
+      componentHandle: options.chargify.component1Handle,
+    });
+    t.is(response.error, null);
+    t.is(response.component.handle, options.chargify.component1Handle);
   })
 
   test('getComponent should return error with HTTP status code 401 when no API key provided', async (t) => {
