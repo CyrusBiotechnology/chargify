@@ -152,7 +152,7 @@ export interface IChargifyProduct {
   public_signup_pages: {
     id: ChargifyId;
     url: string;
-  } [],
+  }[],
   taxable: boolean;
   version_number: number;
 }
