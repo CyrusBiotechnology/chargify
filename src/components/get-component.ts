@@ -36,6 +36,7 @@ export function getComponent(subdomain: string, apiKey: string) {
       }
       case 'handle': {
         componentIdentifier = `handle:${input.componentHandle}`;
+        break;
       }
       default: {
         throw new Error('TODO');

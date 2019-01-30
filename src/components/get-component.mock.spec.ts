@@ -1,5 +1,5 @@
 import * as nock from 'nock';
-import { IChargifyComponent } from '../interfaces';
+import { IChargifyComponent, ChargifyId } from '../interfaces';
 import { TestOptions } from '../options.spec';
 
 export interface IComponentMock {
@@ -9,12 +9,41 @@ export interface IComponentMock {
 
 export function mockGetComponent1(options: TestOptions): IComponentMock {
   const componentId = options.chargify.component1Id;
-  const component: IChargifyComponent = {
+  const component = createMockComponent(options.chargify.productFamilyId, options.chargify.component1Id, options.chargify.component1Handle);
+
+  // base64-encoded Chargify credentials
+  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
+
+  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
+  .matchHeader('Authorization', `Basic ${basicAuth}`)
+  .get(`/product_families/${options.chargify.productFamilyId}/components/${componentId}.json`)
+  .reply(200, {component}) // wrap component object
+
+  return {mock, component};
+}
+
+export function mockGetComponent1ByHandle(options: TestOptions): IComponentMock {
+  const componentHandle = options.chargify.component1Handle;
+  const component = createMockComponent(options.chargify.productFamilyId, options.chargify.component1Id, options.chargify.component1Handle);
+
+  // base64-encoded Chargify credentials
+  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
+
+  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
+  .matchHeader('Authorization', `Basic ${basicAuth}`)
+  .get(`/product_families/${options.chargify.productFamilyId}/components/handle:${componentHandle}.json`)
+  .reply(200, {component}) // wrap component object
+
+  return {mock, component};
+}
+
+function createMockComponent(productFamilyId: ChargifyId, componentId: ChargifyId, componentHandle: string): IChargifyComponent {
+  return {
     id: componentId,
-    product_family_id: options.chargify.productFamilyId,
+    product_family_id: productFamilyId,
     default_price_point_id: 30303,
     name: 'Component Name',
-    handle: 'component_handle',
+    handle: componentHandle,
     kind: 'metered_component',
     description: 'Component description',
     archived: false,
@@ -39,14 +68,4 @@ export function mockGetComponent1(options: TestOptions): IComponentMock {
     tax_code: '',
     recurring: false,
   };
-
-  // base64-encoded Chargify credentials
-  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
-
-  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
-  .matchHeader('Authorization', `Basic ${basicAuth}`)
-  .get(`/product_families/${options.chargify.productFamilyId}/components/${componentId}.json`)
-  .reply(200, {component}) // wrap component object
-
-  return {mock, component};
 }

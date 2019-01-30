@@ -15,6 +15,7 @@ const options: TestOptions = {
     subdomain: process.env.TEST_CHARGIFY_SUBDOMAIN || 'testSubdomain',
     productFamilyId,
     component1Id,
+    component1Handle: process.env.TEST_CHARGIFY_COMPONENT_1_HANDLE || 'test_component_handle',
   }
 }
 

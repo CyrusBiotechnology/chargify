@@ -7,5 +7,6 @@ export interface TestOptions {
     subdomain: string;
     productFamilyId: ChargifyId;
     component1Id: ChargifyId;
+    component1Handle: string;
   }
 }

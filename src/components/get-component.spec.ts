@@ -1,7 +1,7 @@
 import test from 'ava';
 import {getComponent} from './get-component';
 import {TestOptions} from '../options.spec';
-import {mockGetComponent1} from './get-component.mock.spec';
+import {mockGetComponent1, mockGetComponent1ByHandle} from './get-component.mock.spec';
 
 export function getComponentSpec(options: TestOptions) {
   options.chargify.skipMocks ? testWithoutMocks(options) : testWithMocks(options);
@@ -14,6 +14,17 @@ function testWithMocks(options: TestOptions) {
       productFamilyId: options.chargify.productFamilyId,
       requestType: 'id',
       componentId: options.chargify.component1Id,
+    });
+    t.deepEqual(response.component, component);
+    mock.done();
+  })
+
+  test('getComponent should get a single component by component handle', async (t) => {
+    const {component, mock} = mockGetComponent1ByHandle(options);
+    const response = await getComponent(options.chargify.subdomain, options.chargify.apiKey)({
+      productFamilyId: options.chargify.productFamilyId,
+      requestType: 'handle',
+      componentHandle: options.chargify.component1Handle,
     });
     t.deepEqual(response.component, component);
     mock.done();
