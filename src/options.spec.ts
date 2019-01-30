@@ -9,4 +9,8 @@ export interface TestOptions {
     component1Id: ChargifyId;
     component1Handle: string;
   }
+  usagesTest1: {
+    componentId: ChargifyId;
+    subscriptionId: ChargifyId;
+  }
 }
