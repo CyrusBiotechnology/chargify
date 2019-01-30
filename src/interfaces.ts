@@ -1,5 +1,5 @@
-type ChargifyId = number;
-type ChargifyDate = string | null;
+export type ChargifyId = number;
+export type ChargifyDate = string | null;
 
 export interface IChargifyCustomer {
   id: ChargifyId;
