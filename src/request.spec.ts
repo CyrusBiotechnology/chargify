@@ -9,6 +9,10 @@ interface MockResource {
 }
 
 export function requestSpec(options: TestOptions) {
+  if (options.chargify.skipMocks) {
+    return;
+  }
+
   test('getAllPages should return single page of Chargify objects', async (t) => {
     const path = '/test_path';
 

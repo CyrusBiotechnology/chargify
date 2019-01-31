@@ -55,6 +55,67 @@ export interface IChargifyCustomer {
   vat_number: string;
 }
 
+export interface IChargifyPricePoint {
+  id: ChargifyId;
+  default: boolean;
+  name: string;
+  pricing_scheme: 'per_unit';
+  component_id: ChargifyId;
+  handle: string;
+  archived_at: ChargifyDate | null;
+  created_at: ChargifyDate;
+  updated_at: ChargifyDate;
+  prices: {
+    id: ChargifyId;
+    component_id: ChargifyId;
+    starting_quantity: number;
+    ending_quantity: number | null;
+    unit_price: string; // example "5.7"
+    price_point_id: ChargifyId;
+    formatted_unit_price: string;
+  }[]
+}
+
+export interface IChargifyProduct {
+  id: ChargifyId;
+  name: string;
+  handle: string;
+  description: string;
+  accounting_code: string;
+  price_in_cents: number;
+  interval: number;
+  interval_unit: 'month',
+  initial_charge_in_cents: null,
+  expiration_interval: number | null;
+  expiration_interval_unit: 'never',
+  trial_price_in_cents: number | null;
+  trial_interval: number | null;
+  trial_interval_unit: 'month';
+  initial_charge_after_trial: boolean;
+  return_params: string;
+  request_credit_card: true,
+  require_credit_card: true,
+  created_at: ChargifyDate;
+  updated_at: ChargifyDate;
+  archived_at: ChargifyDate;
+  update_return_url: string;
+  tax_code: string;
+  update_return_params: string;
+  product_family: {
+    id: ChargifyId;
+    name: string;
+    handle: string;
+    accounting_code: string | null;
+    description: string;
+  },
+  public_signup_pages: {
+    id: ChargifyId;
+    url: string;
+  }[],
+  taxable: boolean;
+  version_number: number;
+}
+
 export interface IChargifySubscription {
   id: ChargifyId;
   customer: IChargifyCustomer;
@@ -115,67 +176,6 @@ export interface IChargifySubscription {
     customer_id: number;
     disabled: boolean;
   }
-}
-
-export interface IChargifyPricePoint {
-  id: ChargifyId;
-  default: boolean;
-  name: string;
-  pricing_scheme: 'per_unit';
-  component_id: ChargifyId;
-  handle: string;
-  archived_at: ChargifyDate | null;
-  created_at: ChargifyDate;
-  updated_at: ChargifyDate;
-  prices: {
-    id: ChargifyId;
-    component_id: ChargifyId;
-    starting_quantity: number;
-    ending_quantity: number | null;
-    unit_price: string; // example "5.7"
-    price_point_id: ChargifyId;
-    formatted_unit_price: string;
-  }[]
-}
-
-export interface IChargifyProduct {
-  id: ChargifyId;
-  name: string;
-  handle: string;
-  description: string;
-  accounting_code: string;
-  price_in_cents: number;
-  interval: number;
-  interval_unit: 'month',
-  initial_charge_in_cents: null,
-  expiration_interval: number | null;
-  expiration_interval_unit: 'never',
-  trial_price_in_cents: number | null;
-  trial_interval: number | null;
-  trial_interval_unit: 'month';
-  initial_charge_after_trial: boolean;
-  return_params: string;
-  request_credit_card: true,
-  require_credit_card: true,
-  created_at: ChargifyDate;
-  updated_at: ChargifyDate;
-  archived_at: ChargifyDate;
-  update_return_url: string;
-  tax_code: string;
-  update_return_params: string;
-  product_family: {
-    id: ChargifyId;
-    name: string;
-    handle: string;
-    accounting_code: string | null;
-    description: string;
-  },
-  public_signup_pages: {
-    id: ChargifyId;
-    url: string;
-  }[],
-  taxable: boolean;
-  version_number: number;
 }
 
 // Metered component usage
