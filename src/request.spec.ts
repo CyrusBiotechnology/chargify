@@ -100,4 +100,8 @@ export function requestSpec(options: TestOptions) {
     t.is(response.status, 422);
     mockedError.done();
   })
+
+  test.afterEach(() => {
+    nock.cleanAll();
+  })
 }
