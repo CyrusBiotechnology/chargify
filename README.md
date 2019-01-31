@@ -17,6 +17,8 @@ TEST_CHARGIFY_SUBDOMAIN=<subdomain> \
 TEST_CHARGIFY_PRODUCT_FAMILY_ID=<product-family-id> \
 TEST_CHARGIFY_COMPONENT_1_ID=<component-id> \
 TEST_CHARGIFY_COMPONENT_1_HANDLE=<component-handle> \
+TEST_CHARGIFY_USAGE_1_COMPONENT_ID=<component-id> \
+TEST_CHARGIFY_USAGE_1_SUBSCRIPTION_ID=<subscription-id> \
 npm test
 ```
 

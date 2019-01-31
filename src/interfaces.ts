@@ -1,5 +1,5 @@
 export type ChargifyId = number;
-export type ChargifyDate = string | null;
+export type ChargifyDate = string | null; // example: "2019-01-30T11:56:05-08:00"
 
 export interface IChargifyComponent {
   id: ChargifyId;
@@ -155,4 +155,16 @@ export interface IChargifyProduct {
   }[],
   taxable: boolean;
   version_number: number;
+}
+
+// Metered component usage
+export interface IChargifyUsage {
+  id: ChargifyId;
+  memo: string;
+  created_at: ChargifyDate;
+  price_point_id: ChargifyId;
+  quantity: number;
+  component_id: ChargifyId;
+  component_handle: string;
+  subscription_id: ChargifyId;
 }
