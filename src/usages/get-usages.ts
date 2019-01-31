@@ -1,6 +1,6 @@
 import {IChargifyUsage, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
-import {get} from '../request';
+import {getAllPages} from '../request';
 
 export interface IGetUsagesRequest {
   componentId: ChargifyId;
@@ -17,7 +17,7 @@ export function getUsages(subdomain: string, apiKey: string) {
    * Get all usages for the given subscription and component.
    */
   return async (input: IGetUsagesRequest): Promise<IGetUsagesResponse> => {
-    const response = await get<{usage: IChargifyUsage}[]>({
+    const response = await getAllPages<{usage: IChargifyUsage}>({
       path: `/subscriptions/${input.subscriptionId}/components/${input.componentId}/usages.json`,
       subdomain,
       apiKey,

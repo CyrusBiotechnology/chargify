@@ -27,6 +27,7 @@ export function mockUsagesTest1(options: TestOptions): IUsageMock {
   const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
   .matchHeader('Authorization', `Basic ${basicAuth}`)
   .get(`/subscriptions/${options.usagesTest1.subscriptionId}/components/${options.usagesTest1.componentId}/usages.json`)
+  .query({page: 1, per_page: 20})
   .reply(200, usages.map(usage => ({usage}))) // wrap each usage object
 
   return {mock, usages};
