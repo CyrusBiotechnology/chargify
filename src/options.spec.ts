@@ -13,4 +13,7 @@ export interface TestOptions {
     componentId: ChargifyId;
     subscriptionId: ChargifyId;
   }
+  pricePointsTest1: {
+    componentId: ChargifyId;
+  }
 }

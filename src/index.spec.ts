@@ -5,6 +5,7 @@ import {getCustomersSpec} from './customers/get-customers.spec';
 import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
 import {getUsagesSpec} from './usages/get-usages.spec';
 import {requestSpec} from './request.spec';
+import {getPricePointsSpec} from './price-points/get-price-points.spec';
 
 const productFamilyId = process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID && parseInt(process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID) || 100000;
 const component1Id = process.env.TEST_CHARGIFY_COMPONENT_1_ID && parseInt(process.env.TEST_CHARGIFY_COMPONENT_1_ID) || 200000;
@@ -22,13 +23,17 @@ const options: TestOptions = {
   usagesTest1: {
     componentId: process.env.TEST_CHARGIFY_USAGE_1_COMPONENT_ID && parseInt(process.env.TEST_CHARGIFY_USAGE_1_COMPONENT_ID) || 100000,
     subscriptionId: process.env.TEST_CHARGIFY_USAGE_1_SUBSCRIPTION_ID && parseInt(process.env.TEST_CHARGIFY_USAGE_1_SUBSCRIPTION_ID) || 200000,
-  }
+  },
+  pricePointsTest1: {
+    componentId: process.env.TEST_CHARGIFY_PRICE_POINTS_1_COMPONENT_ID && parseInt(process.env.TEST_CHARGIFY_PRICE_POINTS_1_COMPONENT_ID) || 100000,
+  },
 }
 
 // Run tests
 getComponentSpec(options);
 getComponentsSpec(options);
 getCustomersSpec(options);
+getPricePointsSpec(options);
 getSubscriptionsSpec(options);
 getUsagesSpec(options);
 requestSpec(options);

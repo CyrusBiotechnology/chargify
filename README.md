@@ -19,6 +19,7 @@ TEST_CHARGIFY_COMPONENT_1_ID=<component-id> \
 TEST_CHARGIFY_COMPONENT_1_HANDLE=<component-handle> \
 TEST_CHARGIFY_USAGE_1_COMPONENT_ID=<component-id> \
 TEST_CHARGIFY_USAGE_1_SUBSCRIPTION_ID=<subscription-id> \
+TEST_CHARGIFY_PRICE_POINTS_1_COMPONENT_ID=<component-id> \
 npm test
 ```
 
