@@ -1,4 +1,4 @@
-import fetch, { Response } from 'node-fetch';
+import fetch, { Response, ResponseInit } from 'node-fetch';
 import * as url from 'url';
 
 /**
@@ -26,6 +26,10 @@ export interface IPutRequest<T> extends IRequest {
 }
 
 export interface IDeleteRequest<T> extends IRequest {
+}
+
+export interface IGetAllPagesRequest extends IRequest {
+  perPage?: number;
 }
 
 /**
@@ -71,6 +75,48 @@ export async function del<RequestBody, ResponseBody>(request: IDeleteRequest<Req
     method: 'DELETE',
     headers: getCommonHeaders(request),
   });
+}
+
+/**
+ * Make as many page requests as necessary to get all resources.
+ * When the first error occurs, stop making page requests and
+ * return that error.
+ */
+export async function getAllPages<T>(request: IGetAllPagesRequest): Promise<IResponse<T[]>> {
+  const perPageDefault = 20; // 20 is also the default in Chargify
+  const perPage = request.perPage || perPageDefault;
+  let allResources: T[] = [];
+  let page = 1;
+  let shouldGetNextPage = true;
+  while (shouldGetNextPage) {
+    const pageRequest: IGetRequest = {
+      apiKey: request.apiKey,
+      subdomain: request.subdomain,
+      path: request.path,
+      queryParams: {
+        page: `${page}`,
+        per_page: `${perPage}`,
+      }
+    };
+    const pageResponse = await get<T[]>(pageRequest);
+    if (!pageResponse.ok) {
+      return pageResponse;
+    }
+    const resources = await pageResponse.json();
+    allResources = [
+      ...allResources,
+      ...resources,
+    ];
+    // Get next page until current page has less than the page limit
+    if (resources.length < perPage) {
+      shouldGetNextPage = false;
+    } else {
+      page++;
+    }
+  }
+  const responseBody = JSON.stringify(allResources);
+  const responseInit: ResponseInit = {status: 200};
+  return new Response(responseBody, responseInit);
 }
 
 function getCommonUrlParameters(request: IRequest): url.UrlObject {
