@@ -117,6 +117,27 @@ export interface IChargifySubscription {
   }
 }
 
+export interface IChargifyPricePoint {
+  id: ChargifyId;
+  default: boolean;
+  name: string;
+  pricing_scheme: 'per_unit';
+  component_id: ChargifyId;
+  handle: string;
+  archived_at: ChargifyDate | null;
+  created_at: ChargifyDate;
+  updated_at: ChargifyDate;
+  prices: {
+    id: ChargifyId;
+    component_id: ChargifyId;
+    starting_quantity: number;
+    ending_quantity: number | null;
+    unit_price: string; // example "5.7"
+    price_point_id: ChargifyId;
+    formatted_unit_price: string;
+  }[]
+}
+
 export interface IChargifyProduct {
   id: ChargifyId;
   name: string;
