@@ -1,6 +1,23 @@
 export type ChargifyId = number;
 export type ChargifyDate = string | null; // example: "2019-01-30T11:56:05-08:00"
 
+export interface IChargifyAdjustment {
+  id: ChargifyId;
+  success: boolean;
+  memo: string;
+  amount_in_cents: number;
+  starting_balance_in_cents: number;
+  ending_balance_in_cents: number;
+  type: 'Adjustment';
+  transaction_type: 'adjustment';
+  subscription_id: ChargifyId;
+  customer_id: ChargifyId;
+  product_id: ChargifyId;
+  created_at: ChargifyDate;
+  payment_id: null;
+  statement_id: ChargifyId;
+}
+
 export interface IChargifyComponent {
   id: ChargifyId;
   product_family_id: ChargifyId;

@@ -4,13 +4,18 @@ import {getCustomers, IGetCustomersResponse} from './customers/get-customers';
 import {getSubscriptions, IGetSubscriptionsResponse} from './subscriptions/get-subscriptions';
 import {getUsages, IGetUsagesRequest, IGetUsagesResponse} from './usages/get-usages';
 import {getPricePoints, IGetPricePointsRequest, IGetPricePointsResponse} from './price-points/get-price-points';
-import {getProducts, IGetProductsRequest, IGetProductsResponse } from './products/get-products';
+import {getProducts, IGetProductsRequest, IGetProductsResponse} from './products/get-products';
+import {createAdjustment, ICreateAdjustmentRequest, ICreateAdjustmentResponse} from './adjustments/create-adjustment';
 
 export class ChargifyClient {
   private _options: IChargifyClientOptions;
 
   constructor(options: IChargifyClientOptions) {
     this._options = options;
+  }
+
+  public async createAdjustment(input: ICreateAdjustmentRequest): Promise<ICreateAdjustmentResponse> {
+    return createAdjustment(this._options.subdomain, this._options.apiKey)(input);
   }
 
   public async getComponent(input: IGetComponentRequest): Promise<IGetComponentResponse> {

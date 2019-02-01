@@ -1,4 +1,5 @@
 import {TestOptions} from './options.spec';
+import {createAdjustmentSpec} from './adjustments/create-adjustment.spec';
 import {getComponentSpec} from './components/get-component.spec';
 import {getComponentsSpec} from './components/get-components.spec';
 import {getCustomersSpec} from './customers/get-customers.spec';
@@ -27,9 +28,15 @@ const options: TestOptions = {
   pricePointsTest1: {
     componentId: process.env.TEST_CHARGIFY_PRICE_POINTS_1_COMPONENT_ID && parseInt(process.env.TEST_CHARGIFY_PRICE_POINTS_1_COMPONENT_ID) || 100000,
   },
+  createAdjustmentTest: {
+    subscriptionId: process.env.TEST_CHARGIFY_ADJUSTMENT_SUBSCRIPTION_ID && parseInt(process.env.TEST_CHARGIFY_ADJUSTMENT_SUBSCRIPTION_ID) || 100000,
+    amount: 8,
+    memo: 'test-memo',
+  },
 }
 
 // Run tests
+createAdjustmentSpec(options);
 getComponentSpec(options);
 getComponentsSpec(options);
 getCustomersSpec(options);
