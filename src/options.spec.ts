@@ -16,4 +16,9 @@ export interface TestOptions {
   pricePointsTest1: {
     componentId: ChargifyId;
   }
+  createAdjustmentTest: {
+    subscriptionId: ChargifyId;
+    amount: number;
+    memo: string;
+  }
 }

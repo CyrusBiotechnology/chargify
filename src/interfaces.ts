@@ -11,8 +11,8 @@ export interface IChargifyAdjustment {
   type: 'Adjustment';
   transaction_type: 'adjustment';
   subscription_id: ChargifyId;
-  customer_id: 25153401,
-  product_id: 4739516,
+  customer_id: ChargifyId;
+  product_id: ChargifyId;
   created_at: ChargifyDate;
   payment_id: null;
   statement_id: ChargifyId;
