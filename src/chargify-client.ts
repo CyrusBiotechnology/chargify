@@ -1,7 +1,7 @@
 import {getComponent, IGetComponentRequest, IGetComponentResponse} from './components/get-component';
 import {getComponents, IGetComponentsRequest, IGetComponentsResponse} from './components/get-components';
 import {getCustomers, IGetCustomersRequest, IGetCustomersResponse} from './customers/get-customers';
-import {getSubscriptions, IGetSubscriptionsResponse} from './subscriptions/get-subscriptions';
+import {getSubscriptions, IGetSubscriptionsResponse, IGetSubscriptionsRequest} from './subscriptions/get-subscriptions';
 import {getUsages, IGetUsagesRequest, IGetUsagesResponse} from './usages/get-usages';
 import {getPricePoints, IGetPricePointsRequest, IGetPricePointsResponse} from './price-points/get-price-points';
 import {getProducts, IGetProductsRequest, IGetProductsResponse} from './products/get-products';
@@ -34,7 +34,7 @@ export class ChargifyClient {
     return getPricePoints(this._options.subdomain, this._options.apiKey)(input);
   }
 
-  public async getSubscriptions(): Promise<IGetSubscriptionsResponse> {
+  public async getSubscriptions(input?: IGetSubscriptionsRequest): Promise<IGetSubscriptionsResponse> {
     return getSubscriptions(this._options.subdomain, this._options.apiKey)();
   }
 
