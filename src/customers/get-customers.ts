@@ -2,7 +2,11 @@ import {IChargifyCustomer} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {get} from '../request';
 
-export interface IGetCustomersRequest {}
+export interface IGetCustomersRequest {
+  // query value should be one of: email, ID, reference, organization
+  // https://reference.chargify.com/v1/customers/search-for-customer
+  query: string;
+}
 
 export interface IGetCustomersResponse {
   error: ChargifyApiError | null;
@@ -10,9 +14,17 @@ export interface IGetCustomersResponse {
 }
 
 export function getCustomers(subdomain: string, apiKey: string) {
-  return async (): Promise<IGetCustomersResponse> => {
+  return async (input?: IGetCustomersRequest): Promise<IGetCustomersResponse> => {
+    let queryParams: {query?: string};
+    if (input) {
+      queryParams = {};
+      if (input.query) {
+        queryParams.query = input.query;
+      }
+    }
     const response = await get<{customer: IChargifyCustomer}[]>({
       path: '/customers.json',
+      queryParams,
       subdomain,
       apiKey,
     });
