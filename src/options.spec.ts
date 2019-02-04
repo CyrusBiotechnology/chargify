@@ -21,4 +21,7 @@ export interface TestOptions {
     amount: number;
     memo: string;
   }
+  getSubscriptionsTest: {
+    customerId: ChargifyId;
+  }
 }

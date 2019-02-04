@@ -33,6 +33,9 @@ const options: TestOptions = {
     amount: 8,
     memo: 'test-memo',
   },
+  getSubscriptionsTest: {
+    customerId: process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID && parseInt(process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID) || 100000,
+  },
 }
 
 // Run tests
