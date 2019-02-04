@@ -35,7 +35,7 @@ export class ChargifyClient {
   }
 
   public async getSubscriptions(input?: IGetSubscriptionsRequest): Promise<IGetSubscriptionsResponse> {
-    return getSubscriptions(this._options.subdomain, this._options.apiKey)();
+    return getSubscriptions(this._options.subdomain, this._options.apiKey)(input);
   }
 
   public async getUsages(input: IGetUsagesRequest): Promise<IGetUsagesResponse> {
