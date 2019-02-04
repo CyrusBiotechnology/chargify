@@ -15,11 +15,11 @@ export interface IGetCustomersResponse {
 
 export function getCustomers(subdomain: string, apiKey: string) {
   return async (input?: IGetCustomersRequest): Promise<IGetCustomersResponse> => {
-    let queryParams: {query?: string};
+    let queryParams: {q?: string};
     if (input) {
       queryParams = {};
       if (input.query) {
-        queryParams.query = input.query;
+        queryParams.q = input.query;
       }
     }
     const response = await get<{customer: IChargifyCustomer}[]>({
