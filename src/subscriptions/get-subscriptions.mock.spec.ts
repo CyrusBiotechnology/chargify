@@ -8,11 +8,39 @@ export interface ISubscriptionMock {
 }
 
 export function mockGetSubscriptions1(options: TestOptions): ISubscriptionMock {
+  const subscriptions = createMockSubscriptions(options);
+
+  // base64-encoded Chargify credentials
+  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
+
+  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
+  .matchHeader('Authorization', `Basic ${basicAuth}`)
+  .get('/subscriptions.json')
+  .reply(200, subscriptions.map(subscription => ({subscription}))) // wrap each subscription object
+
+  return {mock, subscriptions};
+}
+
+export function mockGetSubscriptions2(options: TestOptions): ISubscriptionMock {
+  const subscriptions = createMockSubscriptions(options);
+
+  // base64-encoded Chargify credentials
+  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
+
+  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
+  .matchHeader('Authorization', `Basic ${basicAuth}`)
+  .get(`/customers/${options.getSubscriptionsTest.customerId}/subscriptions.json`)
+  .reply(200, subscriptions.map(subscription => ({subscription}))) // wrap each subscription object
+
+  return {mock, subscriptions};
+}
+
+function createMockSubscriptions(options: TestOptions): IChargifySubscription[] {
   const subscriptions: IChargifySubscription[] = [
     {
       id: 1,
       customer: {
-        id: 10101,
+        id: options.getSubscriptionsTest.customerId,
         organization: '',
         first_name: '',
         last_name: '',
@@ -129,14 +157,5 @@ export function mockGetSubscriptions1(options: TestOptions): ISubscriptionMock {
       }
     }
   ];
-
-  // base64-encoded Chargify credentials
-  const basicAuth = Buffer.from(`${options.chargify.apiKey}:x`).toString('base64');
-
-  const mock = nock(`https://${options.chargify.subdomain}.chargify.com`)
-  .matchHeader('Authorization', `Basic ${basicAuth}`)
-  .get('/subscriptions.json')
-  .reply(200, subscriptions.map(subscription => ({subscription}))) // wrap each subscription object
-
-  return {mock, subscriptions};
+  return subscriptions;
 }
