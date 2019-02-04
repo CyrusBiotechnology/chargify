@@ -5,7 +5,7 @@ import {get} from '../request';
 export interface IGetCustomersRequest {
   // query value should be one of: email, ID, reference, organization
   // https://reference.chargify.com/v1/customers/search-for-customer
-  query: string;
+  query?: string;
 }
 
 export interface IGetCustomersResponse {
