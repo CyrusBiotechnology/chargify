@@ -4,7 +4,8 @@ import {post} from '../request';
 
 export interface ICreateSubscriptionRequest {
   productHandle: string;
-  customer: {
+  // If specified, customer created in addition to created subscription
+  customer?: {
     firstName: string;
     lastName: string;
     email: string;
@@ -56,7 +57,7 @@ interface IChargifyCreateSubscriptionResponseBody {
   subscription: IChargifySubscription;
 }
 
-export function createSubscriptionWithCustomer(subdomain: string, apiKey: string) {
+export function createSubscription(subdomain: string, apiKey: string) {
   return async (input: ICreateSubscriptionRequest): Promise<ICreateSubscriptionResponse> => {
     // dummy values
     let credit_card_attributes = {
