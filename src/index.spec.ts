@@ -7,6 +7,7 @@ import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
 import {getUsagesSpec} from './usages/get-usages.spec';
 import {requestSpec} from './request.spec';
 import {getPricePointsSpec} from './price-points/get-price-points.spec';
+import {createSubscriptionSpec} from './subscriptions/create-subscription-with-customer.spec';
 
 const productFamilyId = process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID && parseInt(process.env.TEST_CHARGIFY_PRODUCT_FAMILY_ID) || 100000;
 const component1Id = process.env.TEST_CHARGIFY_COMPONENT_1_ID && parseInt(process.env.TEST_CHARGIFY_COMPONENT_1_ID) || 200000;
@@ -36,10 +37,20 @@ const options: TestOptions = {
   getSubscriptionsTest: {
     customerId: process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID && parseInt(process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID) || 100000,
   },
+  createSubscriptionTest: {
+    productHandle: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_PRODUCT_HANDLE || 'test-product-handle',
+    customer: {
+      firstName: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_CUSTOMER_FIRST_NAME || 'First',
+      lastName: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_CUSTOMER_LAST_NAME || 'Last',
+      email: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_CUSTOMER_EMAIL || 'test@example.com',
+      organization: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_CUSTOMER_ORGANIZATION || 'Test Co.',
+    }
+  },
 }
 
 // Run tests
 createAdjustmentSpec(options);
+createSubscriptionSpec(options);
 getComponentSpec(options);
 getComponentsSpec(options);
 getCustomersSpec(options);

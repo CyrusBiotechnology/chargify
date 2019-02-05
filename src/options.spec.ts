@@ -24,4 +24,13 @@ export interface TestOptions {
   getSubscriptionsTest: {
     customerId: ChargifyId;
   }
+  createSubscriptionTest: {
+    productHandle: string;
+    customer: {
+      firstName: string;
+      lastName: string;
+      email: string;
+      organization: string;
+    }
+  }
 }
