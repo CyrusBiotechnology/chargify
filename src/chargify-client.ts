@@ -6,6 +6,7 @@ import {getUsages, IGetUsagesRequest, IGetUsagesResponse} from './usages/get-usa
 import {getPricePoints, IGetPricePointsRequest, IGetPricePointsResponse} from './price-points/get-price-points';
 import {getProducts, IGetProductsRequest, IGetProductsResponse} from './products/get-products';
 import {createAdjustment, ICreateAdjustmentRequest, ICreateAdjustmentResponse} from './adjustments/create-adjustment';
+import { createSubscription, ICreateSubscriptionRequest, ICreateSubscriptionResponse } from './subscriptions/create-subscription';
 
 export class ChargifyClient {
   private _options: IChargifyClientOptions;
@@ -16,6 +17,10 @@ export class ChargifyClient {
 
   public async createAdjustment(input: ICreateAdjustmentRequest): Promise<ICreateAdjustmentResponse> {
     return createAdjustment(this._options.subdomain, this._options.apiKey)(input);
+  }
+
+  public async createSubscription(input: ICreateSubscriptionRequest): Promise<ICreateSubscriptionResponse> {
+    return createSubscription(this._options.subdomain, this._options.apiKey)(input);
   }
 
   public async getComponent(input: IGetComponentRequest): Promise<IGetComponentResponse> {
