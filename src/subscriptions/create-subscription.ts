@@ -1,6 +1,7 @@
 import {IChargifySubscription} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {post} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface ICreateSubscriptionRequest {
   productHandle: string;
@@ -91,8 +92,9 @@ export function createSubscription(subdomain: string, apiKey: string) {
       body: requestBody,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to create subscription'),
+        error: new ChargifyApiError(response.status, 'Failed to create subscription', errors),
         subscription: null,
       };
     }

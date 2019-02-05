@@ -1,6 +1,7 @@
 import {IChargifyCustomer} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {get} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetCustomersRequest {
   // query value should be one of: email, ID, reference, organization
@@ -29,8 +30,9 @@ export function getCustomers(subdomain: string, apiKey: string) {
       apiKey,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get customers'),
+        error: new ChargifyApiError(response.status, 'Failed to get customers', errors),
         customers: null,
       };
     }

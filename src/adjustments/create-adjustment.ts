@@ -1,6 +1,7 @@
 import {ChargifyId, IChargifyAdjustment} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {post} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface ICreateAdjustmentRequest {
   subscriptionId: ChargifyId;
@@ -38,8 +39,9 @@ export function createAdjustment(subdomain: string, apiKey: string) {
       },
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to create adjustment'),
+        error: new ChargifyApiError(response.status, 'Failed to create adjustment', errors),
         adjustment: null,
       };
     }

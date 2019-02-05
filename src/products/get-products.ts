@@ -2,6 +2,7 @@ import { IChargifyProduct } from '../interfaces';
 import { ChargifyApiError } from '../error';
 import { ChargifyId } from '../interfaces';
 import { get } from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetProductsRequest {
   productFamilyId: ChargifyId;
@@ -23,8 +24,9 @@ export function getProducts(subdomain: string, apiKey: string) {
       apiKey: apiKey,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get products'),
+        error: new ChargifyApiError(response.status, 'Failed to get products', errors),
         products: null,
       };
     }
@@ -35,4 +37,4 @@ export function getProducts(subdomain: string, apiKey: string) {
       products,
     };
   }
-} 
+}

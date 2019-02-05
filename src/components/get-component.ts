@@ -1,6 +1,7 @@
 import {IChargifyComponent, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {get} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 interface IGetComponentRequestBase {
   productFamilyId: ChargifyId;
@@ -48,8 +49,9 @@ export function getComponent(subdomain: string, apiKey: string) {
       apiKey,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get component'),
+        error: new ChargifyApiError(response.status, 'Failed to get component', errors),
         component: null,
       };
     }
