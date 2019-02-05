@@ -11,7 +11,6 @@ export interface ICreateSubscriptionRequest {
     email: string;
     organization: string;
   }
-  // If not specified, filled out with dummy values
   creditCardAttributes?: {
     fullNumber: string;
     expirationMonth: string;
@@ -33,13 +32,13 @@ export interface ICreateSubscriptionResponse {
 interface IChargifyCreateSubscriptionRequestBody {
   subscription: {
     product_handle: string;
-    customer_attributes: {
+    customer_attributes?: {
       first_name: string;
       last_name: string;
       email: string;
       organization: string;
     },
-    credit_card_attributes: {
+    credit_card_attributes?: {
       full_number: string;
       expiration_month: string;
       expiration_year: string;
@@ -59,20 +58,21 @@ interface IChargifyCreateSubscriptionResponseBody {
 
 export function createSubscription(subdomain: string, apiKey: string) {
   return async (input: ICreateSubscriptionRequest): Promise<ICreateSubscriptionResponse> => {
-    // dummy values
-    let credit_card_attributes = {
-      full_number: '1',
-      expiration_month: '10',
-      expiration_year: '2020',
-      billing_address: 'x',
-      billing_city: 'x',
-      billing_state: 'x',
-      billing_zip: '00000',
-      billing_country: 'x',
-      cvv: '111',
+    const requestBody: IChargifyCreateSubscriptionRequestBody = {
+      subscription: {
+        product_handle: input.productHandle,
+      }
     };
+    if (input.customer) {
+      requestBody.subscription.customer_attributes = {
+        first_name: input.customer.firstName,
+        last_name: input.customer.lastName,
+        email: input.customer.email,
+        organization: input.customer.organization,
+      };
+    }
     if (input.creditCardAttributes) {
-      credit_card_attributes = {
+      requestBody.subscription.credit_card_attributes = {
         full_number: input.creditCardAttributes.fullNumber,
         expiration_month: input.creditCardAttributes.expirationMonth,
         expiration_year: input.creditCardAttributes.expirationYear,
@@ -84,19 +84,6 @@ export function createSubscription(subdomain: string, apiKey: string) {
         cvv: input.creditCardAttributes.cvv,
       };
     }
-
-    const requestBody: IChargifyCreateSubscriptionRequestBody = {
-      subscription: {
-        product_handle: input.productHandle,
-        customer_attributes: {
-          first_name: input.customer.firstName,
-          last_name: input.customer.lastName,
-          email: input.customer.email,
-          organization: input.customer.organization,
-        },
-        credit_card_attributes,
-      }
-    };
     const response = await post<IChargifyCreateSubscriptionRequestBody, IChargifyCreateSubscriptionResponseBody>({
       path: '/subscriptions.json',
       subdomain,
