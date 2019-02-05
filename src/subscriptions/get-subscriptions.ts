@@ -1,6 +1,7 @@
 import {IChargifySubscription, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {get, IResponse} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetSubscriptionsRequest {
   customerId?: ChargifyId;
@@ -30,8 +31,9 @@ export function getSubscriptions(subdomain: string, apiKey: string) {
       });
     }
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get subscriptions'),
+        error: new ChargifyApiError(response.status, 'Failed to get subscriptions', errors),
         subscriptions: null,
       };
     }

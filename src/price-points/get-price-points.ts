@@ -1,6 +1,7 @@
 import {IChargifyPricePoint, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {get} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetPricePointsRequest {
   componentId: ChargifyId;
@@ -22,8 +23,9 @@ export function getPricePoints(subdomain: string, apiKey: string) {
       apiKey,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get price points'),
+        error: new ChargifyApiError(response.status, 'Failed to get price points', errors),
         pricePoints: null,
       };
     }

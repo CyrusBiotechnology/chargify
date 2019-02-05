@@ -1,6 +1,7 @@
 import {IChargifyUsage, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
 import {getAllPages} from '../request';
+import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetUsagesRequest {
   componentId: ChargifyId;
@@ -23,8 +24,9 @@ export function getUsages(subdomain: string, apiKey: string) {
       apiKey,
     });
     if (!response.ok) {
+      const errors = await extractErrorsFromResponse(response);
       return {
-        error: new ChargifyApiError(response.status, 'Failed to get usages'),
+        error: new ChargifyApiError(response.status, 'Failed to get usages', errors),
         usages: null,
       };
     }
