@@ -3,7 +3,7 @@ export class ChargifyApiError extends Error {
     public statusCode: number,
     public message: string,
     // Chargify usually returns a list of error messages in the response body.
-    public errors: string[],
+    public errors?: string[],
   ) {
     super(message);
   }
