@@ -23,6 +23,8 @@ export interface ICreateSubscriptionRequest {
     billingCountry: string;
     cvv: string;
   }
+  activatedAt?: Date;
+  nextBillingAt?: Date;
 }
 
 export interface ICreateSubscriptionResponse {
@@ -50,6 +52,8 @@ interface IChargifyCreateSubscriptionRequestBody {
       billing_country: string;
       cvv: string;
     }
+    activated_at?: string;
+    next_billing_at?: string;
   }
 }
 
@@ -84,6 +88,12 @@ export function createSubscription(subdomain: string, apiKey: string) {
         billing_country: input.creditCardAttributes.billingCountry,
         cvv: input.creditCardAttributes.cvv,
       };
+    }
+    if (input.activatedAt) {
+      requestBody.subscription.activated_at = input.activatedAt.toString();
+    }
+    if (input.nextBillingAt) {
+      requestBody.subscription.next_billing_at = input.nextBillingAt.toString();
     }
     const response = await post<IChargifyCreateSubscriptionRequestBody, IChargifyCreateSubscriptionResponseBody>({
       path: '/subscriptions.json',
