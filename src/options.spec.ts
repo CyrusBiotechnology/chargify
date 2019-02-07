@@ -33,4 +33,7 @@ export interface TestOptions {
       organization: string;
     }
   }
+  getCustomerByReferenceTest: {
+    reference: string;
+  }
 }

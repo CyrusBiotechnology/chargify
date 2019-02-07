@@ -3,6 +3,7 @@ import {createAdjustmentSpec} from './adjustments/create-adjustment.spec';
 import {getComponentSpec} from './components/get-component.spec';
 import {getComponentsSpec} from './components/get-components.spec';
 import {getCustomersSpec} from './customers/get-customers.spec';
+import {getCustomerByReferenceSpec} from './customers/get-customer-by-reference.spec';
 import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
 import {getUsagesSpec} from './usages/get-usages.spec';
 import {requestSpec} from './request.spec';
@@ -46,6 +47,9 @@ const options: TestOptions = {
       organization: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_CUSTOMER_ORGANIZATION || 'Test Co.',
     }
   },
+  getCustomerByReferenceTest: {
+    reference: process.env.TEST_CHARGIFY_GET_CUSTOMER_BY_REFERENCE || 'customer_ref',
+  },
 }
 
 // Run tests
@@ -54,6 +58,7 @@ createSubscriptionSpec(options);
 getComponentSpec(options);
 getComponentsSpec(options);
 getCustomersSpec(options);
+getCustomerByReferenceSpec(options);
 getPricePointsSpec(options);
 getSubscriptionsSpec(options);
 getUsagesSpec(options);
