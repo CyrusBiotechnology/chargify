@@ -24,6 +24,9 @@ export interface TestOptions {
   getSubscriptionsTest: {
     customerId: ChargifyId;
   }
+  getSubscriptionTest: {
+    subscriptionId: ChargifyId;
+  }
   createSubscriptionTest: {
     productHandle: string;
     customer: {
