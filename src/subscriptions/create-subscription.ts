@@ -11,7 +11,7 @@ export interface ICreateSubscriptionRequest {
     lastName: string;
     email: string;
     organization: string;
-    reference: string;
+    reference?: string;
   }
   creditCardAttributes?: {
     fullNumber: string;
@@ -42,7 +42,7 @@ interface IChargifyCreateSubscriptionRequestBody {
       last_name: string;
       email: string;
       organization: string;
-      reference: string;
+      reference?: string;
     },
     credit_card_attributes?: {
       full_number: string;
@@ -78,8 +78,10 @@ export function createSubscription(subdomain: string, apiKey: string) {
         last_name: input.customer.lastName,
         email: input.customer.email,
         organization: input.customer.organization,
-        reference: input.customer.reference,
       };
+      if (input.customer.reference) {
+        requestBody.subscription.customer_attributes.reference = input.customer.reference;
+      }
     }
     if (input.creditCardAttributes) {
       requestBody.subscription.credit_card_attributes = {
