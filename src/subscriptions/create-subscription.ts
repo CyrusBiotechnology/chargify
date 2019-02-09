@@ -24,6 +24,7 @@ export interface ICreateSubscriptionRequest {
     cvv: string;
   }
   activatedAt?: Date;
+  expiresAt?: Date;
   nextBillingAt?: Date;
 }
 
@@ -53,6 +54,7 @@ interface IChargifyCreateSubscriptionRequestBody {
       cvv: string;
     }
     activated_at?: string;
+    expires_at?: string;
     next_billing_at?: string;
   }
 }
@@ -91,6 +93,9 @@ export function createSubscription(subdomain: string, apiKey: string) {
     }
     if (input.activatedAt) {
       requestBody.subscription.activated_at = input.activatedAt.toString();
+    }
+    if (input.expiresAt) {
+      requestBody.subscription.expires_at = input.expiresAt.toString();
     }
     if (input.nextBillingAt) {
       requestBody.subscription.next_billing_at = input.nextBillingAt.toString();
