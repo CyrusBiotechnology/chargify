@@ -5,6 +5,7 @@ import {getComponentsSpec} from './components/get-components.spec';
 import {getCustomersSpec} from './customers/get-customers.spec';
 import {getCustomerByReferenceSpec} from './customers/get-customer-by-reference.spec';
 import {getSubscriptionsSpec} from './subscriptions/get-subscriptions.spec';
+import {getSubscriptionSpec} from './subscriptions/get-subscription.spec';
 import {getUsagesSpec} from './usages/get-usages.spec';
 import {requestSpec} from './request.spec';
 import {getPricePointsSpec} from './price-points/get-price-points.spec';
@@ -38,6 +39,9 @@ const options: TestOptions = {
   getSubscriptionsTest: {
     customerId: process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID && parseInt(process.env.TEST_CHARGIFY_SUBSCRIPTIONS_CUSTOMER_ID) || 100000,
   },
+  getSubscriptionTest: {
+    subscriptionId: process.env.TEST_CHARGIFY_SUBSCRIPTION_ID && parseInt(process.env.TEST_CHARGIFY_SUBSCRIPTION_ID) || 100000,
+  },
   createSubscriptionTest: {
     productHandle: process.env.TEST_CHARGIFY_CREATE_SUBSCRIPTION_PRODUCT_HANDLE || 'test-product-handle',
     customer: {
@@ -61,5 +65,6 @@ getCustomersSpec(options);
 getCustomerByReferenceSpec(options);
 getPricePointsSpec(options);
 getSubscriptionsSpec(options);
+getSubscriptionSpec(options);
 getUsagesSpec(options);
 requestSpec(options);
