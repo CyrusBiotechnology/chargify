@@ -11,6 +11,7 @@ export interface ICreateSubscriptionRequest {
     lastName: string;
     email: string;
     organization: string;
+    reference?: string;
   }
   creditCardAttributes?: {
     fullNumber: string;
@@ -24,6 +25,7 @@ export interface ICreateSubscriptionRequest {
     cvv: string;
   }
   activatedAt?: Date;
+  expiresAt?: Date;
   nextBillingAt?: Date;
 }
 
@@ -40,6 +42,7 @@ interface IChargifyCreateSubscriptionRequestBody {
       last_name: string;
       email: string;
       organization: string;
+      reference?: string;
     },
     credit_card_attributes?: {
       full_number: string;
@@ -53,6 +56,7 @@ interface IChargifyCreateSubscriptionRequestBody {
       cvv: string;
     }
     activated_at?: string;
+    expires_at?: string;
     next_billing_at?: string;
   }
 }
@@ -75,6 +79,9 @@ export function createSubscription(subdomain: string, apiKey: string) {
         email: input.customer.email,
         organization: input.customer.organization,
       };
+      if (input.customer.reference) {
+        requestBody.subscription.customer_attributes.reference = input.customer.reference;
+      }
     }
     if (input.creditCardAttributes) {
       requestBody.subscription.credit_card_attributes = {
@@ -91,6 +98,9 @@ export function createSubscription(subdomain: string, apiKey: string) {
     }
     if (input.activatedAt) {
       requestBody.subscription.activated_at = input.activatedAt.toString();
+    }
+    if (input.expiresAt) {
+      requestBody.subscription.expires_at = input.expiresAt.toString();
     }
     if (input.nextBillingAt) {
       requestBody.subscription.next_billing_at = input.nextBillingAt.toString();
