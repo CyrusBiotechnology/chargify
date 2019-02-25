@@ -27,6 +27,7 @@ export interface ICreateSubscriptionRequest {
   activatedAt?: Date;
   expiresAt?: Date;
   nextBillingAt?: Date;
+  paymentCollectionMethod?: 'automatic' | 'invoice';
 }
 
 export interface ICreateSubscriptionResponse {
@@ -58,6 +59,7 @@ interface IChargifyCreateSubscriptionRequestBody {
     activated_at?: string;
     expires_at?: string;
     next_billing_at?: string;
+    payment_collection_method?: 'automatic' | 'invoice';
   }
 }
 
@@ -104,6 +106,9 @@ export function createSubscription(subdomain: string, apiKey: string) {
     }
     if (input.nextBillingAt) {
       requestBody.subscription.next_billing_at = input.nextBillingAt.toString();
+    }
+    if (input.paymentCollectionMethod) {
+      requestBody.subscription.payment_collection_method = input.paymentCollectionMethod;
     }
     const response = await post<IChargifyCreateSubscriptionRequestBody, IChargifyCreateSubscriptionResponseBody>({
       path: '/subscriptions.json',
