@@ -1,6 +1,6 @@
 import {IChargifySubscription, ChargifyId} from '../interfaces';
 import {ChargifyApiError} from '../error';
-import {get, IResponse} from '../request';
+import {get, getAllPages, IResponse} from '../request';
 import {extractErrorsFromResponse} from '../util/extract-errors-from-response';
 
 export interface IGetSubscriptionsRequest {
@@ -24,7 +24,7 @@ export function getSubscriptions(subdomain: string, apiKey: string) {
         apiKey,
       });
     } else {
-      response = await get({
+      response = await getAllPages({
         path: '/subscriptions.json',
         subdomain,
         apiKey,

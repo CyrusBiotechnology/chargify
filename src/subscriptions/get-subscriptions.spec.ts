@@ -8,13 +8,6 @@ export function getSubscriptionsSpec(options: TestOptions) {
 }
 
 function testWithMocks(options: TestOptions) {
-  test('getSubscriptions should return list of subscriptions', async (t) => {
-    const {subscriptions, mock} = mockGetSubscriptions1(options);
-    const response = await getSubscriptions(options.chargify.subdomain, options.chargify.apiKey)();
-    t.deepEqual(response.subscriptions, subscriptions);
-    mock.done();
-  })
-
   test('getSubscriptions should return list of subscriptions for a customer', async (t) => {
     const {subscriptions, mock} = mockGetSubscriptions2(options);
     const response = await getSubscriptions(options.chargify.subdomain, options.chargify.apiKey)({customerId: options.getSubscriptionsTest.customerId});
