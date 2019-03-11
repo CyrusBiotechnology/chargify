@@ -14,15 +14,16 @@ function testWithMocks(options: TestOptions) {
     t.deepEqual(response.subscriptions, subscriptions);
     mock.done();
   })
+
+  test('getSubscriptions should return list of subscriptions for a customer', async (t) => {
+    const {subscriptions, mock} = mockGetSubscriptions2(options);
+    const response = await getSubscriptions(options.chargify.subdomain, options.chargify.apiKey)({customerId: options.getSubscriptionsTest.customerId});
+    t.deepEqual(response.subscriptions, subscriptions);
+    mock.done();
+  })
 }
 
 function testWithoutMocks(options: TestOptions) {
-  test('getSubscriptions should return list of subscriptions', async (t) => {
-    const response = await getSubscriptions(options.chargify.subdomain, options.chargify.apiKey)();
-    t.is(response.error, null);
-    t.true(Array.isArray(response.subscriptions));
-  })
-
   test('getSubscriptions should return error with HTTP status code 401 when no API key provided', async (t) => {
     const response = await getSubscriptions(options.chargify.subdomain, undefined)();
     t.is(response.error.statusCode, 401);
