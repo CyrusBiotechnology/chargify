@@ -24,7 +24,7 @@ export function getSubscriptions(subdomain: string, apiKey: string) {
         apiKey,
       });
     } else {
-      response = await get({
+      response = await getAllPages({
         path: '/subscriptions.json',
         subdomain,
         apiKey,
