@@ -14,13 +14,6 @@ function testWithMocks(options: TestOptions) {
     t.deepEqual(response.subscriptions, subscriptions);
     mock.done();
   })
-
-  test('getSubscriptions should return list of subscriptions for a customer', async (t) => {
-    const {subscriptions, mock} = mockGetSubscriptions2(options);
-    const response = await getSubscriptions(options.chargify.subdomain, options.chargify.apiKey)({customerId: options.getSubscriptionsTest.customerId});
-    t.deepEqual(response.subscriptions, subscriptions);
-    mock.done();
-  })
 }
 
 function testWithoutMocks(options: TestOptions) {
